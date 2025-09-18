@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.util.limelight;
 import android.util.Log;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public abstract class LimelightProcessorBase {
     protected final LimelightConfig LLConfig;
     protected LLResult result = null;
     protected double[] pythonResult = {0};
+
+    protected List<LLResultTypes.FiducialResult> tagResults;
     protected List<Coordinates> sortedCoordinates;
     public static double MAX_DETECTABLE_DIST_INCH = 30.0;
 
@@ -30,8 +33,8 @@ public abstract class LimelightProcessorBase {
 
     public synchronized void updateLimelight() {
         result = limelight.getLatestResult();
-        if(result!=null) pythonResult = result.getPythonOutput();
-        else pythonResult = new double[] {0};
+        if(result!=null) {pythonResult = result.getPythonOutput(); tagResults = result.getFiducialResults();}
+        else {pythonResult = new double[] {0};}
         sortCoordinates();
     }
 

@@ -1,6 +1,11 @@
 package org.firstinspires.ftc.teamcode.common;
 
+import java.util.Queue;
+
 public class AutoStates {
+
+    private Queue<Artifact> inventory;
+    private int motifNumber;
     private int spikeMarkNumber;
     private int cycleNumber;
     private int intakenSampleCnt;
@@ -10,6 +15,10 @@ public class AutoStates {
     public int getCycleNumber() {
         return cycleNumber;
     }
+
+    public void setMotifNumber(int motifNumber) {this.motifNumber = motifNumber;}
+
+    public int getMotifNumber() {return motifNumber;}
 
     public void setCycleNumber(int cycleNumber) {
         this.cycleNumber = cycleNumber;
@@ -24,4 +33,9 @@ public class AutoStates {
     public void setAllianceColor(boolean isRed) {
         this.isRed = isRed;
     }
+}
+
+enum Artifact{
+    GREEN,
+    PURPLE
 }
