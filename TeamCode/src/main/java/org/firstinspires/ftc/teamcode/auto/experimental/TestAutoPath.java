@@ -5,6 +5,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.common.AutoStates;
 import org.firstinspires.ftc.teamcode.drive.RobotBase;
 import org.firstinspires.ftc.teamcode.drive.RobotFactory;
 
@@ -12,8 +13,8 @@ import org.firstinspires.ftc.teamcode.drive.RobotFactory;
 public class TestAutoPath extends TestAuto {
 
     @Override
-    protected RobotBase createRobot(HardwareMap hardwareMap) {
-        return (RobotBase) RobotFactory.createRobot(hardwareMap);
+    protected RobotBase createRobot(HardwareMap hardwareMap, AutoStates autoStates) {
+        return (RobotBase) RobotFactory.createRobot(hardwareMap, autoStates);
     }
 
     @Override

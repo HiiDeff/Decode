@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.robot1;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.pedropathing.control.FilteredPIDFCoefficients;
 import com.pedropathing.control.PIDFCoefficients;
 import com.pedropathing.follower.FollowerConstants;
@@ -8,15 +9,16 @@ import com.pedropathing.ftc.drivetrains.MecanumConstants;
 import com.pedropathing.ftc.localization.constants.PinpointConstants;
 import com.pedropathing.ftc.localization.localizers.PinpointLocalizer;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.common.AutoStates;
 import org.firstinspires.ftc.teamcode.drive.RobotBase;
 
 @Config
 public class Robot1 extends RobotBase {
-
     public static FollowerConstants FOLLOWER_CONSTANTS
             = new FollowerConstants()
             .mass(10.65)
@@ -50,11 +52,12 @@ public class Robot1 extends RobotBase {
             .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
-    public Robot1(HardwareMap hardwareMap) {
+    public Robot1(HardwareMap hardwareMap, AutoStates autoStates) {
         super(hardwareMap,
                 FOLLOWER_CONSTANTS,
                 DRIVE_CONSTANTS,
-                new PinpointLocalizer(hardwareMap, PINPOINT_CONSTANTS)
+                new PinpointLocalizer(hardwareMap, PINPOINT_CONSTANTS),
+                autoStates
         );
     }
 }

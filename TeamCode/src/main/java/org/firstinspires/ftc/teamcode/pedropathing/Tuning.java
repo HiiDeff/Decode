@@ -23,6 +23,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.common.AutoStates;
 import org.firstinspires.ftc.teamcode.drive.RobotFactory;
 
 import java.util.ArrayList;
@@ -80,10 +81,10 @@ public class Tuning extends SelectableOpMode {
     @Override
     public void onSelect() {
         if (follower == null) {
-            follower = RobotFactory.createRobot(hardwareMap);
+            follower = RobotFactory.createRobot(hardwareMap, new AutoStates());
 //            PanelsConfigurables.INSTANCE.refreshClass(this);
         } else {
-            follower = RobotFactory.createRobot(hardwareMap);
+            follower = RobotFactory.createRobot(hardwareMap,  new AutoStates());
         }
 
         follower.setStartingPose(new Pose());

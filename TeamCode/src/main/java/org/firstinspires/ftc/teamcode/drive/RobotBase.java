@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.drive;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.ftc.drivetrains.MecanumConstants;
 import com.pedropathing.localization.Localizer;
@@ -17,7 +16,7 @@ public abstract class RobotBase extends MecanumDrive {
 
     protected final HardwareMap hardwareMap;
 
-    protected final AutoStates autoStates;
+    public final AutoStates autoStates;
 
 
     //VISION
@@ -71,8 +70,11 @@ public abstract class RobotBase extends MecanumDrive {
         return aprilTagDetector.checkAprilTags();
     }
 
+
+
     public void updateEverything() {
         update();
+        updateArtifactState();
         aprilTagDetector.updateLimelight();
     }
 }

@@ -35,7 +35,7 @@ public abstract class AutoBase extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot = createRobot(hardwareMap);
+        robot = createRobot(hardwareMap, autoStates);
         resetRobot();
         while (opModeInInit()) {
             telemetry.addData("initializing", 1);
@@ -81,7 +81,7 @@ public abstract class AutoBase extends LinearOpMode {
         robot.setStartingPose(getStartingPose());
     }
 
-    protected abstract RobotBase createRobot(HardwareMap hardwareMap);
+    protected abstract RobotBase createRobot(HardwareMap hardwareMap, AutoStates autoStates);
 
     protected abstract Task createStartTask();
     protected abstract Task createCycleTask();

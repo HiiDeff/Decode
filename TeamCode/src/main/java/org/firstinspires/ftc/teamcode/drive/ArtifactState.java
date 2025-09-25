@@ -44,7 +44,7 @@ public class ArtifactState {
 
     private ArtifactStateColor toHDColor(NormalizedRGBA color) {
         HSV hsv = ImageProcessor.ColorToHsv(color);
-        if (ImageProcessor.isGreen(hsv)) {
+        if (hsv.h>110&&hsv.h<190) {
             return ArtifactStateColor.GREEN;
         }
         if (ImageProcessor.isPurple(hsv)) {

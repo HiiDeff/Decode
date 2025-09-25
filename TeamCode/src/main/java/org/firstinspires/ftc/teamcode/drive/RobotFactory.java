@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.common.AutoStates;
 import org.firstinspires.ftc.teamcode.drive.robot1.Robot1;
 import org.firstinspires.ftc.teamcode.drive_pp.TestRobot1;
 
@@ -19,10 +20,10 @@ public class RobotFactory {
         return ACTIVE_ROBOT;
     }
 
-    public static Follower createRobot(HardwareMap hardwareMap) {
+    public static Follower createRobot(HardwareMap hardwareMap, AutoStates autoStates) {
         switch (ACTIVE_ROBOT) {
             case ROBOT_1:
-                return new Robot1(hardwareMap);
+                return new Robot1(hardwareMap, autoStates);
             case TEST_ROBOT_1:
             default:
                 return new TestRobot1(hardwareMap);

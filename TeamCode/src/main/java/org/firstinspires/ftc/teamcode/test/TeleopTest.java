@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.test;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.common.AutoStates;
 import org.firstinspires.ftc.teamcode.drive.RobotFactory;
 import org.firstinspires.ftc.teamcode.pedropathing.MecanumDrive;
 
@@ -10,7 +11,7 @@ import org.firstinspires.ftc.teamcode.pedropathing.MecanumDrive;
 public class TeleopTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        MecanumDrive robot = (MecanumDrive) RobotFactory.createRobot(hardwareMap);
+        MecanumDrive robot = (MecanumDrive) RobotFactory.createRobot(hardwareMap, new AutoStates());
 
         waitForStart();
 
