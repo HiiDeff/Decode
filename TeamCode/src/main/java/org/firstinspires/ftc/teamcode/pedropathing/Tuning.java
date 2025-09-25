@@ -80,10 +80,10 @@ public class Tuning extends SelectableOpMode {
     @Override
     public void onSelect() {
         if (follower == null) {
-            follower = RobotFactory.createRobot(hardwareMap);
+            //follower = RobotFactory.createRobot(hardwareMap);
 //            PanelsConfigurables.INSTANCE.refreshClass(this);
         } else {
-            follower = RobotFactory.createRobot(hardwareMap);
+            //follower = RobotFactory.createRobot(hardwareMap);
         }
 
         follower.setStartingPose(new Pose());

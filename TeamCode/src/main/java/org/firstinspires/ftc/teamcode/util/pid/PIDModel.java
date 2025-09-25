@@ -3,15 +3,23 @@ package org.firstinspires.ftc.teamcode.util.pid;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public abstract class PIDModel {
-    private final double minPower;
-    private final double maxPower;
-    private final double kP;
-    private final double kI;
-    private final double kD;
+    private double minPower;
+    private double maxPower;
+    private double kP;
+    private double kI;
+    private double kD;
 
     protected double lastTarget = Integer.MAX_VALUE;
 
     public PIDModel(PIDCoefficients pidCoefficients) {
+        this.minPower = pidCoefficients.minPower;
+        this.maxPower = pidCoefficients.maxPower;
+        this.kP = pidCoefficients.kP;
+        this.kI = pidCoefficients.kI;
+        this.kD = pidCoefficients.kD;
+    }
+
+    public void updatePID(PIDCoefficients pidCoefficients) {
         this.minPower = pidCoefficients.minPower;
         this.maxPower = pidCoefficients.maxPower;
         this.kP = pidCoefficients.kP;
@@ -24,6 +32,8 @@ public abstract class PIDModel {
     private double speed = 0.0;
     private double integral = 0.0;
     private boolean integralStarted = false;
+
+    private double powerPrev = 0.0;
 
     public double getPower() {
         double error = getError();
@@ -38,7 +48,9 @@ public abstract class PIDModel {
 //        if (integralStarted) {
 //            integral += error * deltaT;
 //        }
-        double power = kP * error + kI * integral + speed * kD;
+        double powerCur = kP * error + kI * integral + speed * kD;
+        double power = powerCur + powerPrev;
+        powerPrev = power;
 
         double absolutePower = Math.abs(power);
         if (absolutePower > maxPower) {

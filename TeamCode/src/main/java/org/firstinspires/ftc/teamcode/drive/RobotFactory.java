@@ -19,13 +19,11 @@ public class RobotFactory {
         return ACTIVE_ROBOT;
     }
 
-    public static Follower createRobot(HardwareMap hardwareMap) {
+    public static RobotBase createRobot(HardwareMap hardwareMap) {
         switch (ACTIVE_ROBOT) {
+            default:
             case ROBOT_1:
                 return new Robot1(hardwareMap);
-            case TEST_ROBOT_1:
-            default:
-                return new TestRobot1(hardwareMap);
         }
     }
 }

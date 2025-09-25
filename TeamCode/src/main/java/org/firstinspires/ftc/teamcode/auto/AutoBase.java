@@ -58,7 +58,7 @@ public abstract class AutoBase extends LinearOpMode {
             telemetry.update();
 
             Log.i("edbug loop times", cycleTimer.milliseconds()+"");
-            Log.i("el_debug heading_error",robot.getHeadingError()+"");
+            //Log.i("el_debug heading_error",robot.getHeadingError()+"");
             cycleTimer.reset();
         }
     }
@@ -78,7 +78,7 @@ public abstract class AutoBase extends LinearOpMode {
     }
 
     private void resetRobot() {
-        robot.setStartingPose(getStartingPose());
+        //robot.setStartingPose(getStartingPose());
     }
 
     protected abstract RobotBase createRobot(HardwareMap hardwareMap);
