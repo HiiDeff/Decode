@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.common.AutoStates;
 import org.firstinspires.ftc.teamcode.drive.RobotBase;
+import org.firstinspires.ftc.teamcode.drive_pp.TestRobot1;
 import org.firstinspires.ftc.teamcode.task.Task;
 
 @Config
@@ -24,7 +25,7 @@ public abstract class AutoBase extends LinearOpMode {
     public static int AA_TIME_FOR_PARK = 0000; //0 for now because prioritize delivering a sample over 3 point hang
 
     protected final ElapsedTime timer = new ElapsedTime();
-    protected RobotBase robot;
+    protected TestRobot1 robot;
 
     protected AutoState state = AutoState.START;
     protected AutoStates autoStates = new AutoStates();
@@ -44,7 +45,15 @@ public abstract class AutoBase extends LinearOpMode {
 
         ElapsedTime cycleTimer = new ElapsedTime();
 
-        boolean done = false;
+        while(opModeIsActive() && task!=null){
+            robot.update();
+            if(task.perform()) {
+                task.cancel();
+                task = null;
+            }
+        }
+
+     /*   boolean done = false;
         while (opModeIsActive() && !done && task != null) {
             robot.updateEverything();
             if(timeToFinish() && state!=AutoState.FINISH) {
@@ -66,7 +75,7 @@ public abstract class AutoBase extends LinearOpMode {
             Log.i("edbug loop times", cycleTimer.milliseconds()+"");
             Log.i("el_debug heading_error",robot.getHeadingError()+"");
             cycleTimer.reset();
-        }
+        }*/
     }
 
     private boolean timeToFinish() {
@@ -82,7 +91,7 @@ public abstract class AutoBase extends LinearOpMode {
         robot.setStartingPose(getStartingPose());
     }
 
-    protected abstract RobotBase createRobot(HardwareMap hardwareMap);
+    protected abstract TestRobot1 createRobot(HardwareMap hardwareMap);
 
     protected abstract Task createStartTask();
     protected abstract Task createCycleTask();

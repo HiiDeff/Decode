@@ -13,7 +13,7 @@ public class RobotFactory {
         ROBOT_1,
         TEST_ROBOT_1
     }
-    public static Robot ACTIVE_ROBOT = Robot.ROBOT_1;
+    public static Robot ACTIVE_ROBOT = Robot.TEST_ROBOT_1;
 
     public static Robot getActiveRobot() {
         return ACTIVE_ROBOT;

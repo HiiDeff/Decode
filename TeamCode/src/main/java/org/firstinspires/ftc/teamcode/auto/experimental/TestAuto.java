@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.drive.RobotBase;
 import org.firstinspires.ftc.teamcode.drive.RobotFactory;
+import org.firstinspires.ftc.teamcode.drive_pp.TestRobot1;
 
 @Config
 @Autonomous(name = "Test Auto", group = "Test")
@@ -22,8 +23,8 @@ public class TestAuto extends TestAutoPath {
     public static double SHOOT_4_X = 7.67, SHOOT_4_Y = -3.46, SHOOT_4_H = 0.40486;
 
     @Override
-    protected RobotBase createRobot(HardwareMap hardwareMap) {
-        return (RobotBase) RobotFactory.createRobot(hardwareMap);
+    protected TestRobot1 createRobot(HardwareMap hardwareMap) {
+        return (TestRobot1) RobotFactory.createRobot(hardwareMap);
     }
 
     @Override

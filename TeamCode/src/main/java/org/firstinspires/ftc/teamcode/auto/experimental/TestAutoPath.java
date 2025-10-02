@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.task.SeriesTask;
 import org.firstinspires.ftc.teamcode.task.SleepTask;
 import org.firstinspires.ftc.teamcode.task.Task;
 
+import kotlin.math.UMathKt;
+
 public abstract class TestAutoPath extends AutoBase {
 
     @Override
@@ -19,19 +21,44 @@ public abstract class TestAutoPath extends AutoBase {
                 new RuntimeDrivingTask(
                         robot,
                         builder -> {
-                            Pose pose = getShoot1Pose();
                             return builder
                                     .addPath(
                                             new BezierCurve(
-                                                    robot.getPose(),
-                                                    pose
+                                                    new Pose(0,0),
+                                                    new Pose(63.82, 19.15)
                                             )
                                     )
-                                    .setLinearHeadingInterpolation(robot.getHeading(), pose.getHeading())
+                                    .setLinearHeadingInterpolation(Math.toRadians(0), 0.993)
                                     .build();
                         }
                 )
         );
+        task.add(new SleepTask(3000));
+        task.add(new RuntimeDrivingTask(
+                robot,
+                builder -> {
+                    return builder.addPath(
+                                    new BezierCurve(
+                                            new Pose(63.82, 19.15),
+                                            new Pose(50.34, 32.63)
+                                    )
+                            )
+                            .setLinearHeadingInterpolation(0.993, 2.3508)
+                            .build();
+                }));
+        task.add(new SleepTask(3000));
+        task.add(new RuntimeDrivingTask(
+                robot,
+                builder -> {
+                    return builder.addPath(
+                                    new BezierCurve(
+                                            new Pose(50.34, 32.63),
+                                            new Pose(0,0)
+                                    )
+                            )
+                            .setLinearHeadingInterpolation(Math.toRadians(2.3508), Math.toRadians(0))
+                            .build();
+                }));
         task.add(new SleepTask(1000));
         return task;
     }
