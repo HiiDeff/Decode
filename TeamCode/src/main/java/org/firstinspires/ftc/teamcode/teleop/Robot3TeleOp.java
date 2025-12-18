@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import android.util.Log;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -8,6 +10,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.drive.RobotBase;
 import org.firstinspires.ftc.teamcode.drive.RobotFactory;
 import org.firstinspires.ftc.teamcode.drive.SensorUpdateThread;
@@ -27,6 +30,9 @@ public abstract class Robot3TeleOp extends LinearOpMode {
     public static int FLYWHEEL_TARGET_RPM = 2600, MANUAL_OVERRIDE_FLYWHEEL_RPM = 2600;
     public static double PIVOT_TARGET_POS = 0.07, MANUAL_OVERRIDE_PIVOT_POS = 0.07;
     public static double FLYWHEEL_ON_INTAKE_POWER = 1, INTAKE_IDLE_POWER = 0.3;
+
+    public static int CURRENT_2_BALL_THRESHOLD = 1200, CURRENT_3_BALL_THRESHOLD = 2200;
+    public static int numArtifacts = 0;
     private TeleOpState state;
     private boolean parking = false;
     private double drivePow = 0.0;
@@ -63,6 +69,7 @@ public abstract class Robot3TeleOp extends LinearOpMode {
                 manualOverride();
             }
             park();
+            Log.i("ndbug intake amps", "" + robot.intake.getCurrent(CurrentUnit.MILLIAMPS));
         }
 
         sensorUpdateThread.interrupt();
@@ -110,6 +117,7 @@ public abstract class Robot3TeleOp extends LinearOpMode {
         multipleTelemetry.addData("dist to goal", robot.getVectorToGoal().getMagnitude());
         multipleTelemetry.addData("current rpm", robot.getFlywheelVelocityRpm());
         multipleTelemetry.addData("target rpm", FLYWHEEL_TARGET_RPM);
+        multipleTelemetry.addData("num of artifacts", numArtifacts);
         multipleTelemetry.update();
     }
 
@@ -151,8 +159,18 @@ public abstract class Robot3TeleOp extends LinearOpMode {
         }
         else if(task == null) {
             if(robot.hasArtifact()) {
+                if(robot.intake.getCurrent(CurrentUnit.MILLIAMPS) > CURRENT_3_BALL_THRESHOLD){
+                    numArtifacts = 3;
+                }
+                else if(robot.intake.getCurrent(CurrentUnit.MILLIAMPS) > CURRENT_2_BALL_THRESHOLD){
+                    numArtifacts = 2;
+                }
+                else{
+                    numArtifacts = 1;
+                }
                 robot.runIntakeWithPower(INTAKE_IDLE_POWER);
             } else {
+                numArtifacts = 0;
                 robot.stopIntake();
             }
 //            robot.runIntakeWithPower(INTAKE_IDLE_POWER);
