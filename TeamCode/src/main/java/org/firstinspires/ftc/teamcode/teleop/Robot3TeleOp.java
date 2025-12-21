@@ -32,7 +32,6 @@ public abstract class Robot3TeleOp extends LinearOpMode {
     public static double FLYWHEEL_ON_INTAKE_POWER = 1, INTAKE_IDLE_POWER = 0.3;
 
     public static int CURRENT_2_BALL_THRESHOLD = 1200, CURRENT_3_BALL_THRESHOLD = 2200;
-    public static int numArtifacts = 0;
     private TeleOpState state;
     private boolean parking = false;
     private double drivePow = 0.0;
@@ -117,7 +116,7 @@ public abstract class Robot3TeleOp extends LinearOpMode {
         multipleTelemetry.addData("dist to goal", robot.getVectorToGoal().getMagnitude());
         multipleTelemetry.addData("current rpm", robot.getFlywheelVelocityRpm());
         multipleTelemetry.addData("target rpm", FLYWHEEL_TARGET_RPM);
-        multipleTelemetry.addData("num of artifacts", numArtifacts);
+        multipleTelemetry.addData("num of artifacts", robot.numArtifacts);
         multipleTelemetry.update();
     }
 
@@ -160,17 +159,17 @@ public abstract class Robot3TeleOp extends LinearOpMode {
         else if(task == null) {
             if(robot.hasArtifact()) {
                 if(robot.intake.getCurrent(CurrentUnit.MILLIAMPS) > CURRENT_3_BALL_THRESHOLD){
-                    numArtifacts = 3;
+                    robot.numArtifacts = 3;
                 }
                 else if(robot.intake.getCurrent(CurrentUnit.MILLIAMPS) > CURRENT_2_BALL_THRESHOLD){
-                    numArtifacts = 2;
+                    robot.numArtifacts = 2;
                 }
                 else{
-                    numArtifacts = 1;
+                    robot.numArtifacts = 1;
                 }
                 robot.runIntakeWithPower(INTAKE_IDLE_POWER);
             } else {
-                numArtifacts = 0;
+                robot.numArtifacts = 0;
                 robot.stopIntake();
             }
 //            robot.runIntakeWithPower(INTAKE_IDLE_POWER);

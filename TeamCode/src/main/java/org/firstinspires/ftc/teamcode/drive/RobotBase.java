@@ -78,6 +78,9 @@ public abstract class RobotBase extends MecanumDrive {
     public Pose limelightRobotPose; // estimated robot pose if limelight sees ATag, otherwise null
     public Pose limelightTransOffset = new Pose(0, 0); //offset values based on last seen ATag values
 
+    // Intake States
+    public int numArtifacts = 0;
+
     // Cached Encoder Values
     private double flywheelVelocityTicksPerSecond = 0.0;
     private int turretAngleTicks = 0;

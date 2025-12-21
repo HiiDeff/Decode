@@ -108,19 +108,19 @@ public class ArtifactState {
         boolean flash = (timer.milliseconds() % 500 <= 250); // one every 500 ms
 
 
-//        if (ready){
-//            if (detectedIntake){
-//                pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
-//            } else{
-//                pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
-//            }
-//        }else{
-        if (detectedIntake){
-            pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_WHITE;
+        if (ready){
+            if (robot.numArtifacts == 3){
+                pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
+            } else{
+                pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_RED;
+            }
         }else{
-            pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
+            if (robot.numArtifacts == 3){
+                pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+            }else{
+                pattern = RevBlinkinLedDriver.BlinkinPattern.RED;
+            }
         }
-//        }
 
 
         Log.e("adbug colorled",  pattern.toString());
