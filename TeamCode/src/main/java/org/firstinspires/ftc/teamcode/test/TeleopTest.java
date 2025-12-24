@@ -96,6 +96,11 @@ public class TeleopTest extends LinearOpMode {
             Pose offsetPose = robot.limelightTransOffset;
             multipleTelemetry.addData("robot offset using limelight", offsetPose.getX()+" "+offsetPose.getY()+" "+offsetPose.getHeading());
 
+            robot.limelight.pipelineSwitch(0);
+            Pose clusterPose = robot.getLargestArtifactClusterPose();
+            multipleTelemetry.addData("closest cluster pose", clusterPose.getX()+" "+clusterPose.getY()+" "+clusterPose.getHeading());
+            robot.limelight.pipelineSwitch(0);
+
             if(turretActive) {
                 robot.setTurretTargetPosition(TURRET_TARGET_RAD);
             } else if(turretAutoAim) {

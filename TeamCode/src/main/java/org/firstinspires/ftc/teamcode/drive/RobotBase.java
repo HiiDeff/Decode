@@ -23,7 +23,9 @@ import org.firstinspires.ftc.teamcode.task.RampTask;
 import org.firstinspires.ftc.teamcode.task.PivotTask;
 import org.firstinspires.ftc.teamcode.util.Utils;
 import org.firstinspires.ftc.teamcode.util.limelight.AprilTagType;
+import org.firstinspires.ftc.teamcode.util.limelight.ArtifactCluster;
 import org.firstinspires.ftc.teamcode.util.limelight.LimelightAprilTagDetector;
+import org.firstinspires.ftc.teamcode.util.limelight.LimelightArtifactDetector;
 import org.firstinspires.ftc.teamcode.util.limelight.LimelightConfig;
 import org.firstinspires.ftc.teamcode.util.pid.PIDCoefficients;
 import org.firstinspires.ftc.teamcode.util.pid.VelocityPIDCoefficients;
@@ -68,9 +70,10 @@ public abstract class RobotBase extends MecanumDrive {
     // Camera
     public final Limelight3A limelight;
     public final LimelightAprilTagDetector limelightAprilTagDetector;
+    public final LimelightArtifactDetector limelightArtifactDetector;
     public static LimelightConfig LLConfig = new LimelightConfig(640, 480,
-            0, 54,41,
-            -3,0,0);
+            10, 54,41,
+            0,0,12.5);
     public static int APRIL_TAG_PIPELINE = 1;
 
     // States
@@ -125,6 +128,7 @@ public abstract class RobotBase extends MecanumDrive {
         // Limelight:
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelightAprilTagDetector = new LimelightAprilTagDetector(limelight, LLConfig);
+        limelightArtifactDetector = new LimelightArtifactDetector(limelight, LLConfig);
         // Motion Control:
         flywheelPID = new FlywheelPID(this, getVelocityPIDCoefficients());
         turret = new Turret(this, TURRET_PID_COEFFICIENTS, TURRET_TICKS_PER_RAD);
@@ -327,6 +331,7 @@ public abstract class RobotBase extends MecanumDrive {
     }
     public void updateLimelight() { // public for teleop usage, auto for motifs
         limelightAprilTagDetector.updateLimelight();
+        limelightArtifactDetector.update();
     }
     public void stopLimelight() {
         limelight.stop();
@@ -357,5 +362,16 @@ public abstract class RobotBase extends MecanumDrive {
     }
     public AprilTagType getMotif() {
         return limelightAprilTagDetector.getMotif();
+    }
+    public Pose getLargestArtifactClusterPose() {
+        ArtifactCluster cluster = limelightArtifactDetector.getLargestArtifactCluster();
+
+        Pose currentPose = getPose();
+
+        if (cluster == null){
+            return currentPose;
+        }
+
+        return new Pose(cluster.getY() + currentPose.getX(), cluster.getX() + currentPose.getY(), getPose().getHeading());
     }
 }
