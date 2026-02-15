@@ -15,10 +15,11 @@ import org.firstinspires.ftc.teamcode.task.SeriesTask;
 import org.firstinspires.ftc.teamcode.task.SleepTask;
 import org.firstinspires.ftc.teamcode.task.Task;
 
-@Disabled
 @Config
 @Autonomous(name = "PedroTestAuto", group = "autoTest")
 public class PedroTestAutoPath extends TestAutoBase {
+
+    public static double MAX_POWER = 0.9;
 
     public static double
         POS1_X, POS1_Y, POS1_H,
@@ -52,7 +53,8 @@ public class PedroTestAutoPath extends TestAutoBase {
                                     .addPath(new BezierCurve(robot.getPose(), pose))
                                     .setLinearHeadingInterpolation(robot.getHeading(), pose.getHeading())
                                     .build();
-                        }
+                        },
+                        MAX_POWER
                 )
         );
 
@@ -66,7 +68,8 @@ public class PedroTestAutoPath extends TestAutoBase {
                                     .addPath(new BezierCurve(robot.getPose(), pose))
                                     .setLinearHeadingInterpolation(robot.getHeading(), pose.getHeading())
                                     .build();
-                        }
+                        },
+                        MAX_POWER
                 )
         );
 
@@ -81,7 +84,8 @@ public class PedroTestAutoPath extends TestAutoBase {
                                     .addPath(new BezierCurve(robot.getPose(), pose))
                                     .setLinearHeadingInterpolation(robot.getHeading(), pose.getHeading())
                                     .build();
-                        }
+                        },
+                        MAX_POWER
                 )
         );
 

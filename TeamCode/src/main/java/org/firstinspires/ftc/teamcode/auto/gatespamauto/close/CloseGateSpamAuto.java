@@ -25,7 +25,7 @@ public abstract class CloseGateSpamAuto extends AutoBase {
     public static int FLYWHEEL_VELOCITY = 3100;
     public static double INTAKE_IDLE_POWER = 0.3;
     public static double INTAKE_VELOCITY_CONSTRAINT = 0.5;
-    public static double MAX_PATH_VELOCITY = 0.8;
+    public static double MAX_PATH_VELOCITY = 0.9;
 
     @Override
     protected Location getFirstLocation() {
